@@ -10,7 +10,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
     <!-- Chosen Palette: Warm Neutrals -->
     <!-- Application Structure Plan: A single-page, vertically scrolling application designed as a guided tutorial. The structure follows the logical flow of the tariff calculation: 1. Introduction & Fundamentals, 2. Breakdown of the Revenue Requirement formula, 3. Deep-dive into the WACC calculation with interactive calculators, and 4. Final Tariff Structure. This sequential, step-by-step approach was chosen to deconstruct a complex financial topic into manageable, digestible sections, making it accessible even to non-experts. A sticky top navigation allows users to jump between key sections, facilitating both linear learning and random access exploration. -->
@@ -30,13 +30,13 @@
         }
         html.dark {
             --bg-color: #111827;
-            --text-color: #9CA3AF;
+            --text-color: #F9FAFB;
             --card-bg: #1F2937;
-            --border-color: #374151;
-            --header-bg: #1F2937; /* Darker Header for dark mode */
+            --border-color: #f1f5f9; /* slate-100 for a high-contrast border in dark mode */
+            --header-bg: #1F2937; 
             --header-text: #60A5FA;
             --header-hover: #93C5FD;
-            --strong-text: #F9FAFB;
+            --strong-text: #FFFFFF;
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
         .formula-box { font-family: 'Inter', sans-serif; background-color: var(--card-bg); padding: 1rem 1.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color); font-size: 1.25rem; color: var(--strong-text); text-align: center; font-weight: 600; }
@@ -93,10 +93,10 @@
                          <a href="#comparativo" class="nav-item text-sm">Comparativo</a>
                     </nav>
                     <div class="flex items-center ml-2">
-                         <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2" style="color: var(--header-text);">
+                        <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2" style="color: var(--header-text);">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                         </button>
-                        <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 ml-2" style="background-color: var(--header-bg); color: var(--header-text); focus-ring-color: var(--header-text)">
+                        </button>
+                       <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 ml-2" style="background-color: var(--header-bg); color: var(--header-text); focus-ring-color: var(--header-text)">
                             <svg id="theme-icon-dark" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                             <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="url(#sun-gradient)" viewBox="0 0 20 20">
                                 <defs>
@@ -134,11 +134,11 @@
              <h2 class="text-3xl font-bold mb-2 text-center">Entendendo a Base do Cálculo Tarifário</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Para estabelecer uma nova tarifa de água, especialmente para um serviço focado em indústrias, é preciso seguir uma metodologia regulatória rigorosa. Esta aplicação interativa descomplica esse processo, explicando cada etapa, desde os princípios básicos até os cálculos financeiros mais complexos.</p>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                     <h3 class="text-xl font-semibold mb-3 text-blue-600">Princípio da Receita Requerida</h3>
                     <p class="mb-4">A base de tudo é a <strong class="font-semibold text-slate-800">Receita Requerida</strong>. Pense nela como o "salário" anual que a concessionária (CODEGO) precisa receber para operar com eficiência, cobrir seus custos, recuperar investimentos e ser remunerada de forma justa pelo capital que aplicou no negócio.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                     <h3 class="text-xl font-semibold mb-3 text-blue-600">O Papel da Agência Reguladora (AGR)</h3>
                     <p>A <strong class="font-semibold text-slate-800">Agência Goiana de Regulação (AGR)</strong> atua como um árbitro. Sua função é analisar e aprovar a proposta de tarifa da CODEGO, garantindo que os cálculos estejam corretos e que a tarifa final seja justa tanto para a empresa quanto para os consumidores. A metodologia usada se baseia em normas técnicas da AGR, alinhadas com as diretrizes da Agência Nacional de Águas (ANA).</p>
                 </div>
@@ -149,7 +149,7 @@
         <section id="receita" class="mb-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Receita Requerida</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A metodologia se baseia no conceito de <em>building blocks</em> para definir a receita necessária para cobrir todos os custos e remunerar o capital investido de forma justa. Clique em cada componente para entender sua função ou insira os valores abaixo para calcular.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                 <div class="formula-box mb-6">RR = OPEX + DEP + RC + TRIBUTOS - OUTRAS RECEITAS</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div class="modal-trigger bg-slate-50 p-4 rounded-lg border border-slate-200 text-center hover:bg-slate-100 hover:border-blue-300 transition-all" data-modal="opex-rr-modal"><h4 class="font-bold text-blue-700">OPEX</h4><p class="text-sm">Custos Operacionais Eficientes</p></div>
@@ -160,20 +160,20 @@
                 </div>
                 
                 <div class="max-w-md mx-auto mt-8 space-y-4 p-6 bg-slate-50 rounded-lg">
-                    <div class="flex justify-between items-center"><label for="input-opex" class="font-semibold">OPEX (R$)</label><input type="number" id="input-opex" class="calculator-input" placeholder="0,00"></div>
-                    <div class="flex justify-between items-center"><label for="input-dep" class="font-semibold">Depreciação (R$)</label><input type="number" id="input-dep" class="calculator-input" placeholder="0,00"></div>
+                    <div class="flex justify-between items-center"><label for="input-opex" class="font-semibold">OPEX (R$)</label><input type="text" id="input-opex" class="calculator-input" placeholder="0,00"></div>
+                    <div class="flex justify-between items-center"><label for="input-dep" class="font-semibold">Depreciação (R$)</label><input type="text" id="input-dep" class="calculator-input" placeholder="0,00"></div>
                     <div class="flex justify-between items-center">
                         <label for="input-rc" class="font-semibold flex items-center">RC (R$) 
                             <span class="modal-trigger ml-2 w-5 h-5 bg-yellow-100 border border-yellow-500 rounded flex items-center justify-center text-yellow-700 font-bold text-sm" data-modal="rc-calc-modal">!</span>
                         </label>
-                        <input type="number" id="input-rc" class="calculator-input bg-slate-200 dark:bg-slate-600 cursor-not-allowed" placeholder="0,00" readonly>
+                        <input type="text" id="input-rc" class="calculator-input bg-slate-100 dark:bg-slate-700 dark:text-slate-300 cursor-not-allowed" placeholder="0,00" readonly>
                     </div>
-                    <div class="flex justify-between items-center"><label for="input-tributos" class="font-semibold">Tributos (R$)</label><input type="number" id="input-tributos" class="calculator-input" placeholder="0,00"></div>
+                    <div class="flex justify-between items-center"><label for="input-tributos" class="font-semibold">Tributos (R$)</label><input type="text" id="input-tributos" class="calculator-input" placeholder="0,00"></div>
                     <div class="flex justify-between items-center">
                         <label for="input-outras" class="font-semibold">Outras Receitas (R$)</label>
                         <div class="flex items-center">
                             <span id="outras-receitas-sign" class="text-2xl font-bold text-red-600 mr-2 hidden">-</span>
-                            <input type="number" id="input-outras" class="calculator-input" placeholder="0,00">
+                            <input type="text" id="input-outras" class="calculator-input" placeholder="0,00">
                         </div>
                     </div>
                 </div>
@@ -187,10 +187,10 @@
         <section id="brr-section" class="mb-16 scroll-mt-24">
              <h2 class="text-3xl font-bold mb-2 text-center">A Base de Remuneração Regulatória (BRR)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A BRR representa o valor total dos investimentos prudentes e em operação sobre os quais a concessionária tem direito a ser remunerada. Insira o valor da BRR para o cálculo automático da Remuneração de Capital (RC).</p>
-            <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-slate-200">
+            <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                  <div class="flex justify-between items-center">
                     <label for="input-brr" class="font-semibold">Base de Remuneração Regulatória (BRR) (R$)</label>
-                    <input type="number" id="input-brr" class="calculator-input" placeholder="0,00">
+                    <input type="text" id="input-brr" class="calculator-input" placeholder="0,00">
                 </div>
             </div>
         </section>
@@ -207,7 +207,7 @@
 
             <div class="grid lg:grid-cols-5 gap-8 items-start">
                 <div class="lg:col-span-3 space-y-6">
-                    <div class="param-card p-6">
+                    <div class="param-card p-6 rounded-lg shadow-lg border-slate-200 dark:border-slate-100">
                         <h3 class="text-xl font-semibold mb-4">1. Custo do Capital Próprio (Ke)</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
@@ -227,14 +227,14 @@
                                 <span><input type="number" id="prpInput" value="2.66" step="0.01" class="input-box"> %</span>
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-slate-200">
+                        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-100">
                              <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center flex flex-col justify-center">
                                 <p>Ke Real (pós-impostos)</p>
                                 <p id="keFinalValue" class="text-3xl font-bold text-blue-600">9.82%</p>
                             </div>
                         </div>
                     </div>
-                    <div class="param-card p-6">
+                    <div class="param-card p-6 rounded-lg shadow-lg border-slate-200 dark:border-slate-100">
                         <h3 class="text-xl font-semibold mb-4">2. Custo do Capital de Terceiros (Kd)</h3>
                         <div class="space-y-3">
                             <p class="text-sm mb-2">Calculado como \(K_d = R_f + PRP + \text{Spread de Crédito}\)</p>
@@ -247,7 +247,7 @@
                                 <span><input type="number" id="taxInput" value="34" step="1" class="input-box"> %</span>
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-slate-200">
+                        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-100">
                              <div class="bg-green-50 p-4 rounded-lg border border-green-200 text-center flex flex-col justify-center">
                                 <p>Kd Real (pós-impostos)</p>
                                 <p id="kdFinalValue" class="text-3xl font-bold text-green-600">6.47%</p>
@@ -255,7 +255,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                     <h3 class="text-xl font-semibold mb-4 text-center">Estrutura de Capital e WACC Final</h3>
                     <div class="chart-container mb-4"><canvas id="waccChart"></canvas></div>
                     <div class="space-y-2 text-sm">
@@ -275,7 +275,7 @@
         <section id="tarifa" class="mb-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Cálculo do Volume de água consumido pela empresa (m³)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Aqui, calculamos o volume total (V), que representa o total de água consumido pela empresa em metros cúbicos (m³), servindo como denominador para o cálculo da tarifa média.</p>
-            <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                 <div class="mb-6 bg-yellow-50 p-4 rounded-lg border-yellow-200 text-sm">
                     <p>
                         <span id="obsInitialText"><strong class="font-semibold">Observação:</strong> Preencha os campos abaixo usando a SOMA de todos os dados de consumo em m³ de água desde janeiro de 2021 até o mês corrente de 2025. Esta abordagem é necessária (partindo de 2021) devido à falta de informações públicas consolidadas...</span>
@@ -289,11 +289,11 @@
                             <tr class="bg-slate-100"><th class="p-3 font-semibold border-b border-slate-300">Ano</th><th class="p-3 font-semibold border-b border-slate-300 text-right">Volume (m³)</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td class="p-3 border-b border-slate-200">2021</td><td class="p-3 border-b border-slate-200"><input type="number" class="input-box w-full volume-input" placeholder="0"></td></tr>
-                            <tr><td class="p-3 border-b border-slate-200">2022</td><td class="p-3 border-b border-slate-200"><input type="number" class="input-box w-full volume-input" placeholder="0"></td></tr>
-                            <tr><td class="p-3 border-b border-slate-200">2023</td><td class="p-3 border-b border-slate-200"><input type="number" class="input-box w-full volume-input" placeholder="0"></td></tr>
-                            <tr><td class="p-3 border-b border-slate-200">2024</td><td class="p-3 border-b border-slate-200"><input type="number" class="input-box w-full volume-input" placeholder="0"></td></tr>
-                            <tr><td class="p-3 border-b border-slate-200">2025</td><td class="p-3 border-b border-slate-200"><input type="number" class="input-box w-full volume-input" placeholder="0"></td></tr>
+                            <tr><td class="p-3 border-b border-slate-200">2021</td><td class="p-3 border-b border-slate-200"><input type="text" class="input-box w-full volume-input" placeholder="0"></td></tr>
+                            <tr><td class="p-3 border-b border-slate-200">2022</td><td class="p-3 border-b border-slate-200"><input type="text" class="input-box w-full volume-input" placeholder="0"></td></tr>
+                            <tr><td class="p-3 border-b border-slate-200">2023</td><td class="p-3 border-b border-slate-200"><input type="text" class="input-box w-full volume-input" placeholder="0"></td></tr>
+                            <tr><td class="p-3 border-b border-slate-200">2024</td><td class="p-3 border-b border-slate-200"><input type="text" class="input-box w-full volume-input" placeholder="0"></td></tr>
+                            <tr><td class="p-3 border-b border-slate-200">2025</td><td class="p-3 border-b border-slate-200"><input type="text" class="input-box w-full volume-input" placeholder="0"></td></tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-slate-100 font-bold"><td class="p-3">TOTAL V (m³)</td><td id="totalVolume" class="p-3 text-right">0</td></tr>
@@ -307,14 +307,14 @@
         <section id="tarifa-media" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">A TARIFA MÉDIA DE ÁGUA JUSTA (R$/m³)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A Tarifa Média (Tm) justa é calculada dividindo-se a Receita Requerida (RR) total pelo Volume total de água e esgoto faturado (V). Esta seção demonstra o cálculo para a Tarifa Média de Água.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                 <div class="formula-box mb-6">$$ T_{m(\text{água})} = \frac{RR}{V} $$</div>
                 <div class="text-center space-y-4 max-w-lg mx-auto">
                      <p class="text-lg">Cálculo passo a passo:</p>
                      <p id="tm-agua-calc" class="font-mono text-xl p-4 bg-slate-50 rounded-lg">R$ 0,00 / 0 m³</p>
                      <div class="equation-box p-4 rounded-lg mt-6">
                         <p class="text-xl font-semibold">Tm de água JUSTA = <span id="tm-agua-final" class="font-bold text-blue-600">R$ 0,00 / m³</span></p>
-                     </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -322,15 +322,15 @@
          <!-- Section 6: Tarifa Média Esgoto -->
         <section id="tarifa-esgoto" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">A TARIFA MÉDIA DE ESGOTO JUSTA (R$/m³)</h2>
-            <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Para chegarmos a uma Tarifa Média de Esgoto JUSTA, é necessário uma breve explicação do fator proporcional (adimensional, ou seja, um número puro, sem unidade de medida, que serve para escalar outro valor), que relaciona a tarifa de esgoto à tarifa de água. Para isso, a tradição metodológica, que não é única, pois cada fornecedora destes serviços públicos tem a sua, coloca o valor de p, a letra usualmente utilizada para representar este conceito, que poderá variar conforme diretrizes da agência reguladora e análise do custo relativo dos serviços. Nada obstante, a AGR tem adotado a postura de fixar em 100% para assegurar o equilíbrio económico-financeiro do serviço de esgoto de forma individualizada. Como foi feito no início do ano em um REAJUSTE. Portanto, seguindo o caso da SANEAGO e após análises, estudos e a insistência da COMPANHIA em seguir a SANEAGO nos reajustes no valor da tarifa e nos seus reajustes, há uma grande probabilidade de que seja aprovado o seguinte valor -> <strong class="font-semibold">p = 1, ou p = 100%</strong>, o que significa que o valor da tarifa de esgoto terá o mesmo valor atribuído à tarifa de água.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
+            <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Para chegarmos a uma Tarifa Média de Esgoto JUSTA, é necessário uma breve explicação do fator proporcional (adimensional, ou seja, um número puro, sem unidade de medida, que serve para escalar outro valor), que relaciona a tarifa de esgoto à tarifa de água. Para isso, a tradição metodológica, que não é única, pois cada fornecedora destes serviços públicos tem a sua, coloca o valor de p, a letra usualmente utilizada para representar este conceito, que poderá variar conforme diretrizes da agência reguladora e análise do custo relativo dos serviços. Nada obstante, a AGR tem adotado a postura de fixar em 100% para assegurar o equilíbrio económico-financeiro do serviço de esgoto de forma individualizada. Como foi feito no início do ano em um REAJUSTE. Portanto, seguindo o caso da SANEAGO e após análises, estudos e a insistência da COMPANHIA em seguir a SANEAGO nos reajustes no valor da tarifa e nos seus reajustes, há uma grande probabilidade de que seja aprovado o seguinte valor -> <strong class="font-semibold">p = 1, ou p = 100%</strong>, o que significa que o valor da tarifa de esgoto terá o mesmo valor atribuído à tarifa de água.</p>
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                 <div class="formula-box mb-6">$$ T_{m(\text{esgoto})} = T_{m(\text{água})} \times p $$</div>
                 <div class="text-center space-y-4 max-w-lg mx-auto">
                      <p class="text-lg">Cálculo passo a passo:</p>
                      <p id="tm-esgoto-calc" class="font-mono text-xl p-4 bg-slate-50 rounded-lg">R$ 0,00 / m³ × 1</p>
                      <div class="equation-box p-4 rounded-lg mt-6">
                         <p class="text-xl font-semibold">Tm esgoto JUSTA = <span id="tm-esgoto-final" class="font-bold text-blue-600">R$ 0,00 / m³</span></p>
-                     </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -339,7 +339,7 @@
         <section id="comparativo" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Comparativo Tarifário: CODEGO (Atual) vs. Tarifa Justa</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Este gráfico compara a tarifa de água atual da CODEGO para 2025 com a tarifa justa calculada nesta análise, permitindo uma visualização clara da diferença entre os valores.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-100">
                  <div class="chart-container mb-8">
                     <canvas id="comparisonChart"></canvas>
                 </div>
@@ -405,20 +405,31 @@
 
             const TARIFA_ATUAL = 12.87;
 
+            // Helper function to parse numbers that might use a comma for the decimal place or be negative
+            const parseInputNumber = (value) => {
+                const cleanValue = String(value).replace(',', '.');
+                // Allow negative sign only at the beginning
+                if (/^-?\d*\.?\d*$/.test(cleanValue)) {
+                    return parseFloat(cleanValue) || 0;
+                }
+                return parseFloat(cleanValue.replace(/[^0-9.-]/g, '')) || 0;
+            };
+
             const formatPercent = (value) => `${value.toFixed(2)}%`;
             const formatCurrency = (value, unit = 'BRL') => {
                 if (unit === 'BRL') {
                     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 }
+                // For tariff per m³, use specific formatting with comma decimal
                 return `${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} R$/m³`;
             };
 
-            const parseCurrency = (value) => parseFloat(value.replace(/[^0-9,.]+/g, "").replace(/\./g, '').replace(',', '.')) || 0;
+            const parseCurrency = (value) => parseFloat(value.replace(/[^0-9,-]+/g, "").replace(/\./g, '').replace(',', '.')) || 0;
             const parseNumber = (value) => parseFloat(String(value).replace(/\./g, '').replace(',', '.')) || 0;
             
             const updateComparison = () => {
                 const tmAguaValue = parseCurrency(elements.outputs.tmAguaFinal.textContent);
-                const diff = ((tmAguaValue - TARIFA_ATUAL) / TARIFA_ATUAL) * 100;
+                const diff = TARIFA_ATUAL !== 0 ? ((tmAguaValue - TARIFA_ATUAL) / TARIFA_ATUAL) * 100 : 0;
 
                 let diffText = '';
                 if (isFinite(diff)) {
@@ -466,23 +477,26 @@
 
             const calculateRC = () => {
                 const waccValue = parseFloat(elements.outputs.wacc.textContent) / 100 || 0;
-                const brrValue = parseFloat(elements.inputs.brr.value) || 0;
+                const brrValue = parseInputNumber(elements.inputs.brr.value);
                 const rcResult = waccValue * brrValue;
                 
                 elements.outputs.rcModalWacc.textContent = formatPercent(waccValue * 100);
                 elements.outputs.rcModalBrr.textContent = formatCurrency(brrValue);
                 elements.outputs.rcModalResult.textContent = formatCurrency(rcResult);
                 
-                elements.inputs.rc.value = rcResult > 0 ? rcResult.toFixed(2).replace('.', ',') : '';
+                if (!isNaN(rcResult)) {
+                    elements.inputs.rc.value = rcResult.toFixed(2).replace('.', ',');
+                }
+
                 calculateRR();
             };
 
             const calculateRR = () => {
-                const opex = parseFloat(elements.inputs.opex.value) || 0;
-                const dep = parseFloat(elements.inputs.dep.value) || 0;
-                const rc = parseFloat(elements.inputs.rc.value.replace(',', '.')) || 0;
-                const tributos = parseFloat(elements.inputs.tributos.value) || 0;
-                const outras = parseFloat(elements.inputs.outras.value) || 0;
+                const opex = parseInputNumber(elements.inputs.opex.value);
+                const dep = parseInputNumber(elements.inputs.dep.value);
+                const rc = parseInputNumber(elements.inputs.rc.value);
+                const tributos = parseInputNumber(elements.inputs.tributos.value);
+                const outras = parseInputNumber(elements.inputs.outras.value);
 
                 const rr = opex + dep + rc + tributos - outras;
                 elements.outputs.rr.textContent = formatCurrency(rr);
@@ -527,7 +541,7 @@
 
             const calculateVolume = () => {
                 let total = 0;
-                elements.inputs.volume.forEach(input => total += parseFloat(input.value) || 0);
+                elements.inputs.volume.forEach(input => total += parseInputNumber(input.value));
                 elements.outputs.totalVolume.textContent = total.toLocaleString('pt-BR');
                 calculateTmAgua();
             };
@@ -556,7 +570,14 @@
                             borderWidth: 1
                         }]
                     },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        scales: { 
+                            y: {  } // Removed beginAtZero to allow negative values
+                        }, 
+                        plugins: { legend: { display: false } } 
+                    }
                 });
             };
             
