@@ -10,46 +10,29 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page, vertically scrolling application designed as a guided tutorial. The structure follows the logical flow of the tariff calculation: 1. Introduction & Fundamentals, 2. Breakdown of the Revenue Requirement formula, 3. Deep-dive into the WACC calculation with interactive calculators, and 4. Final Tariff Structure. This sequential, step-by-step approach was chosen to deconstruct a complex financial topic into manageable, digestible sections, making it accessible even to non-experts. A sticky top navigation allows users to jump between key sections, facilitating both linear learning and random access exploration. -->
-    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. WACC Components -> Goal: Compare proportions -> Viz: Donut/Pie Chart -> Interaction: Hover to see details -> Justification: Clearly shows the weight of Equity vs. Debt in the capital structure -> Library: Chart.js. 2. Ke & Kd Calculation -> Goal: Show composition -> Viz: Stacked Bar Chart -> Interaction: Sliders update chart in real-time -> Justification: Visually demonstrates how each risk premium contributes to the total cost of capital. 3. Beta Calculation -> Goal: Explain process -> Viz: HTML/CSS Flow Diagram -> Interaction: Static visual aid -> Justification: Simplifies a complex 3-step financial process (unlever/relever) into an easy-to-follow visual diagram. All textual content is presented in expandable cards to manage information density, preventing user overload. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <style>
         :root {
             --bg-color: #F8FAFC;
             --text-color: #334155;
             --card-bg: #ffffff;
             --border-color: #E2E8F0;
-            --header-bg: #F1F5F9; /* Lighter Header */
-            --header-text: #1E40AF; /* Darker Blue for contrast */
-            --header-hover: #2563EB;
+            --header-bg: #1e293b; /* Dark Slate Header */
+            --header-text: #e2e8f0; /* Light Slate Text for Contrast */
+            --header-hover: #ffffff;
             --strong-text: #111827;
         }
-        html.dark {
-            --bg-color: #111827;
-            --text-color: #F9FAFB; /* Changed to clear white */
-            --card-bg: #1F2937;
-            --border-color: #334155; /* Changed to slate-700 for a navy-like border */
-            --header-bg: #1F2937; 
-            --header-text: #60A5FA;
-            --header-hover: #93C5FD;
-            --strong-text: #FFFFFF; /* Changed to clear white */
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); }
         .formula-box { font-family: 'Inter', sans-serif; background-color: var(--card-bg); padding: 1rem 1.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color); font-size: 1.25rem; color: var(--strong-text); text-align: center; font-weight: 600; }
         .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
         .nav-item { transition: all 0.2s ease-in-out; color: var(--header-text); }
         .nav-item:hover { color: var(--header-hover); }
-        .nav-item.active { color: #2563EB; font-weight: 600; border-bottom: 2px solid #2563EB; }
-        html.dark .nav-item.active { color: #93C5FD; border-bottom-color: #93C5FD;}
+        .nav-item.active { color: #93c5fd; font-weight: 600; border-bottom: 2px solid #93c5fd; }
         .param-card { border: 1px solid var(--border-color); border-radius: 0.75rem; background-color: var(--card-bg); transition: all 0.3s ease-in-out; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05); }
         .param-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07); }
         .modal-trigger { cursor: pointer; }
         .interactive-var { display: inline-block; padding: 0.25rem 0.5rem; background-color: var(--card-bg); border: 2px solid #60A5FA; border-radius: 0.375rem; font-weight: 700; color: #1E40AF; transition: all 0.2s; }
-        html.dark .interactive-var { color: var(--header-text); }
         .interactive-var:hover { background-color: #EFF6FF; border-color: #2563EB; }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal-content { background-color: var(--card-bg); padding: 2rem; border-radius: 0.75rem; max-width: 600px; width: 90%; position: relative; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); color: var(--text-color); }
@@ -60,25 +43,14 @@
         .calculator-input:focus { border-color: #2563EB; box-shadow: 0 0 0 2px #BFDBFE; outline: none; }
         .calculator-input::-webkit-outer-spin-button, .calculator-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .equation-box { background-color: #EBF5FF; border: 2px solid #90CDF4; }
-        html.dark .equation-box { background-color: #2D3748; border-color: #4A5568; }
         h2, h3 { color: var(--strong-text); }
-        .bg-white { background-color: var(--card-bg); }
-        .text-slate-800 { color: var(--strong-text); }
-        .text-slate-600 { color: var(--text-color); }
-        .border-slate-200 { border-color: var(--border-color); }
-        html.dark .border-slate-700 { border-color: var(--border-color); } /* Added for consistency */
-        .bg-slate-50 { background-color: #F9FAFB; }
-        html.dark .bg-slate-50 { background-color: #1F2937; }
-        .bg-yellow-50 { background-color: #FEFCE8; }
-        html.dark .bg-yellow-50 { background-color: #423b08; }
-        #theme-toggle svg { transition: transform 0.3s ease-in-out; }
-        #theme-toggle:hover svg { transform: scale(1.1) rotate(15deg); }
+        .font-semibold { font-weight: 900 !important; }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header and Navigation -->
-    <header id="header" class="sticky top-0 z-50 shadow-md border-b" style="background-color: var(--header-bg); border-color: var(--border-color)">
+    <header id="header" class="sticky top-0 z-50 shadow-md border-b" style="background-color: var(--header-bg); border-color: #0f172a;">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <h1 class="text-lg sm:text-xl md:text-2xl font-bold" style="color: var(--header-text);">Tarifa da CODEGO: uma análise interativa</h1>
@@ -93,36 +65,24 @@
                          <a href="#tarifa-esgoto" class="nav-item text-sm">T. Esgoto</a>
                          <a href="#comparativo" class="nav-item text-sm">Comparativo</a>
                     </nav>
-                    <div class="flex items-center ml-2">
-                        <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2" style="color: var(--header-text);">
+                    <div class="lg:hidden">
+                        <button id="mobile-menu-button" class="p-2 rounded-md focus:outline-none focus:ring-2" style="color: var(--header-text);">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                        </button>
-                       <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 ml-2" style="background-color: var(--header-bg); color: var(--header-text); focus-ring-color: var(--header-text)">
-                            <svg id="theme-icon-dark" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                            <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="url(#sun-gradient)" viewBox="0 0 20 20">
-                                <defs>
-                                    <linearGradient id="sun-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#FDB813;" />
-                                        <stop offset="100%" style="stop-color:#F97316;" />
-                                    </linearGradient>
-                                </defs>
-                                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"></path>
-                            </svg>
                         </button>
                     </div>
                 </div>
             </div>
              <!-- Mobile Menu -->
-            <div id="mobile-menu" class="lg:hidden hidden">
-                <nav class="flex flex-col space-y-2 px-2 pt-2 pb-4">
-                     <a href="#fundamentos" class="nav-item block px-3 py-2 rounded-md text-base font-medium">Fundamentos</a>
-                     <a href="#receita" class="nav-item block px-3 py-2 rounded-md text-base font-medium">Receita</a>
-                     <a href="#brr-section" class="nav-item block px-3 py-2 rounded-md text-base font-medium">BRR</a>
-                     <a href="#wacc" class="nav-item block px-3 py-2 rounded-md text-base font-medium">WACC</a>
-                     <a href="#tarifa" class="nav-item block px-3 py-2 rounded-md text-base font-medium">Volume</a>
-                     <a href="#tarifa-media" class="nav-item block px-3 py-2 rounded-md text-base font-medium">T. Água</a>
-                     <a href="#tarifa-esgoto" class="nav-item block px-3 py-2 rounded-md text-base font-medium">T. Esgoto</a>
-                     <a href="#comparativo" class="nav-item block px-3 py-2 rounded-md text-base font-medium">Comparativo</a>
+            <div id="mobile-menu" class="hidden absolute top-16 right-0 w-64 bg-white rounded-lg shadow-xl py-2">
+                <nav class="flex flex-col">
+                     <a href="#fundamentos" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">Fundamentos</a>
+                     <a href="#receita" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">Receita</a>
+                     <a href="#brr-section" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">BRR</a>
+                     <a href="#wacc" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">WACC</a>
+                     <a href="#tarifa" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">Volume</a>
+                     <a href="#tarifa-media" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">T. Água</a>
+                     <a href="#tarifa-esgoto" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">T. Esgoto</a>
+                     <a href="#comparativo" class="nav-item block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">Comparativo</a>
                 </nav>
             </div>
         </div>
@@ -135,11 +95,11 @@
              <h2 class="text-3xl font-bold mb-2 text-center">Entendendo a Base do Cálculo Tarifário</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Para estabelecer uma nova tarifa de água, especialmente para um serviço focado em indústrias, é preciso seguir uma metodologia regulatória rigorosa. Esta aplicação interativa descomplica esse processo, explicando cada etapa, desde os princípios básicos até os cálculos financeiros mais complexos.</p>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
                     <h3 class="text-xl font-semibold mb-3 text-blue-600">Princípio da Receita Requerida</h3>
                     <p class="mb-4">A base de tudo é a <strong class="font-semibold text-slate-800">Receita Requerida</strong>. Pense nela como o "salário" anual que a concessionária (CODEGO) precisa receber para operar com eficiência, cobrir seus custos, recuperar investimentos e ser remunerada de forma justa pelo capital que aplicou no negócio.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
                     <h3 class="text-xl font-semibold mb-3 text-blue-600">O Papel da Agência Reguladora (AGR)</h3>
                     <p>A <strong class="font-semibold text-slate-800">Agência Goiana de Regulação (AGR)</strong> atua como um árbitro. Sua função é analisar e aprovar a proposta de tarifa da CODEGO, garantindo que os cálculos estejam corretos e que a tarifa final seja justa tanto para a empresa quanto para os consumidores. A metodologia usada se baseia em normas técnicas da AGR, alinhadas com as diretrizes da Agência Nacional de Águas (ANA).</p>
                 </div>
@@ -150,7 +110,7 @@
         <section id="receita" class="mb-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Receita Requerida</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A metodologia se baseia no conceito de <em>building blocks</em> para definir a receita necessária para cobrir todos os custos e remunerar o capital investido de forma justa. Clique em cada componente para entender sua função ou insira os valores abaixo para calcular.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
                 <div class="formula-box mb-6">RR = OPEX + DEP + RC + TRIBUTOS - OUTRAS RECEITAS</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div class="modal-trigger bg-slate-50 p-4 rounded-lg border border-slate-200 text-center hover:bg-slate-100 hover:border-blue-300 transition-all" data-modal="opex-rr-modal"><h4 class="font-bold text-blue-700">OPEX</h4><p class="text-sm">Custos Operacionais Eficientes</p></div>
@@ -167,7 +127,7 @@
                         <label for="input-rc" class="font-semibold flex items-center">RC (R$) 
                             <span class="modal-trigger ml-2 w-5 h-5 bg-yellow-100 border border-yellow-500 rounded flex items-center justify-center text-yellow-700 font-bold text-sm" data-modal="rc-calc-modal">!</span>
                         </label>
-                        <input type="text" id="input-rc" class="calculator-input bg-slate-100 dark:bg-slate-700 dark:text-slate-300 cursor-not-allowed" placeholder="0,00" readonly>
+                        <input type="text" id="input-rc" class="calculator-input bg-slate-100 cursor-not-allowed" placeholder="0,00" readonly>
                     </div>
                     <div class="flex justify-between items-center"><label for="input-tributos" class="font-semibold">Tributos (R$)</label><input type="text" id="input-tributos" class="calculator-input" placeholder="0,00"></div>
                     <div class="flex justify-between items-center">
@@ -188,7 +148,7 @@
         <section id="brr-section" class="mb-16 scroll-mt-24">
              <h2 class="text-3xl font-bold mb-2 text-center">A Base de Remuneração Regulatória (BRR)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A BRR representa o valor total dos investimentos prudentes e em operação sobre os quais a concessionária tem direito a ser remunerada. Insira o valor da BRR para o cálculo automático da Remuneração de Capital (RC).</p>
-            <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-slate-200">
                  <div class="flex justify-between items-center">
                     <label for="input-brr" class="font-semibold">Base de Remuneração Regulatória (BRR) (R$)</label>
                     <input type="text" id="input-brr" class="calculator-input" placeholder="0,00">
@@ -208,7 +168,7 @@
 
             <div class="grid lg:grid-cols-5 gap-8 items-start">
                 <div class="lg:col-span-3 space-y-6">
-                    <div class="param-card p-6 rounded-lg shadow-lg border-slate-700">
+                    <div class="param-card p-6 rounded-lg shadow-lg">
                         <h3 class="text-xl font-semibold mb-4">1. Custo do Capital Próprio (Ke)</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
@@ -228,17 +188,17 @@
                                 <span><input type="number" id="prpInput" value="2.66" step="0.01" class="input-box"> %</span>
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                             <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center flex flex-col justify-center">
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                             <div class="bg-blue-50 text-blue-900 p-4 rounded-lg border border-blue-200 text-center flex flex-col justify-center">
                                 <p>Ke Real (pós-impostos)</p>
                                 <p id="keFinalValue" class="text-3xl font-bold text-blue-600">9.82%</p>
                             </div>
                         </div>
                     </div>
-                    <div class="param-card p-6 rounded-lg shadow-lg border-slate-700">
+                    <div class="param-card p-6 rounded-lg shadow-lg">
                         <h3 class="text-xl font-semibold mb-4">2. Custo do Capital de Terceiros (Kd)</h3>
                         <div class="space-y-3">
-                            <p class="text-sm mb-2">Calculado como \(K_d = R_f + PRP + \text{Spread de Crédito}\)</p>
+                            <p class="text-sm mb-2"><strong class="font-semibold">Calculado como:</strong> <span class="text-lg">\(K_d = R_f + PRP + \text{Spread de Crédito}\)</span></p>
                              <div class="flex justify-between items-center">
                                 <label for="spreadInput" class="font-medium">Spread de Crédito:</label>
                                 <span><input type="number" id="spreadInput" value="3.53" step="0.01" class="input-box"> %</span>
@@ -248,15 +208,15 @@
                                 <span><input type="number" id="taxInput" value="34" step="1" class="input-box"> %</span>
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                             <div class="bg-green-50 p-4 rounded-lg border border-green-200 text-center flex flex-col justify-center">
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                             <div class="bg-green-50 text-green-900 p-4 rounded-lg border border-green-200 text-center flex flex-col justify-center">
                                 <p>Kd Real (pós-impostos)</p>
                                 <p id="kdFinalValue" class="text-3xl font-bold text-green-600">6.47%</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg border border-slate-200">
                     <h3 class="text-xl font-semibold mb-4 text-center">Estrutura de Capital e WACC Final</h3>
                     <div class="chart-container mb-4"><canvas id="waccChart"></canvas></div>
                     <div class="space-y-2 text-sm">
@@ -276,8 +236,8 @@
         <section id="tarifa" class="mb-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Cálculo do Volume de água consumido pela empresa (m³)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Aqui, calculamos o volume total (V), que representa o total de água consumido pela empresa em metros cúbicos (m³), servindo como denominador para o cálculo da tarifa média.</p>
-            <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
-                <div class="mb-6 bg-yellow-50 p-4 rounded-lg border-yellow-200 text-sm">
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
+                <div class="mb-6 bg-yellow-50 text-yellow-900 p-4 rounded-lg border-yellow-200 text-sm">
                     <p>
                         <span id="obsInitialText"><strong class="font-semibold">Observação:</strong> Preencha os campos abaixo usando a SOMA de todos os dados de consumo em m³ de água desde janeiro de 2021 até o mês corrente de 2025. Esta abordagem é necessária (partindo de 2021) devido à falta de informações públicas consolidadas...</span>
                         <span id="obsMoreText" class="hidden"> e relatos em processos administrativos da COMPANHIA tornando os dados de meados de 2020 para trás cinzentos, imprecisos, por problemas mal resolvidos administrativamente da CODEGO para com a empresa contratada Log Lab Inteligência Digital responsável pela troca de sistema para armazenamento e gerenciamento de dados de processos administrativos, assim como pela digitalização dos processos físicos para implantar um novo software para gerir os processos administrativos, o que, por razões legais, escolhemos não confiar nos poucos dados que se tem de 2020 e nos anos anteriores. Ademais, essa situação foi matéria de discussão por anos, valendo citar a Ata de Reunião Extraordinária do Conselho de Administração da COMPANHIA datada de 22 de dezembro de 2021 (<a href="https://www.codego.com.br/wp-content/uploads/2023/07/22-de_dezembro_de_2021.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">acessível aqui</a>), cito: "Base para abstenção de conclusão. Ativo Intangível – Log Lab Inteligência Digital Ltda. A CODEGO, por meio do Processo Licitatório 2017.1021.6000.049, firmou contrato com a empresa Log Lab Inteligência Digital. Todavia, o seu valor aditivo de R$ 5.059.526,00 foi registrado no exercício de 2019, como Software em Andamento. Ressalta-se que o contrato foi firmado em 2017, com prazo de vigência até 30 de agosto de 2019 e ainda não foi concluído, aguardando parecer técnico quanto a viabilidade da entrega do Sistema."</span>
@@ -308,7 +268,7 @@
         <section id="tarifa-media" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">A TARIFA MÉDIA DE ÁGUA JUSTA (R$/m³)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">A Tarifa Média (Tm) justa é calculada dividindo-se a Receita Requerida (RR) total pelo Volume total de água e esgoto faturado (V). Esta seção demonstra o cálculo para a Tarifa Média de Água.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
                 <div class="formula-box mb-6">$$ T_{m(\text{água})} = \frac{RR}{V} $$</div>
                 <div class="text-center space-y-4 max-w-lg mx-auto">
                      <p class="text-lg">Cálculo passo a passo:</p>
@@ -324,7 +284,7 @@
         <section id="tarifa-esgoto" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">A TARIFA MÉDIA DE ESGOTO JUSTA (R$/m³)</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Para chegarmos a uma Tarifa Média de Esgoto JUSTA, é necessário uma breve explicação do fator proporcional (adimensional, ou seja, um número puro, sem unidade de medida, que serve para escalar outro valor), que relaciona a tarifa de esgoto à tarifa de água. Para isso, a tradição metodológica, que não é única, pois cada fornecedora destes serviços públicos tem a sua, coloca o valor de p, a letra usualmente utilizada para representar este conceito, que poderá variar conforme diretrizes da agência reguladora e análise do custo relativo dos serviços. Nada obstante, a AGR tem adotado a postura de fixar em 100% para assegurar o equilíbrio económico-financeiro do serviço de esgoto de forma individualizada. Como foi feito no início do ano em um REAJUSTE. Portanto, seguindo o caso da SANEAGO e após análises, estudos e a insistência da COMPANHIA em seguir a SANEAGO nos reajustes no valor da tarifa e nos seus reajustes, há uma grande probabilidade de que seja aprovado o seguinte valor -> <strong class="font-semibold">p = 1, ou p = 100%</strong>, o que significa que o valor da tarifa de esgoto terá o mesmo valor atribuído à tarifa de água.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
                 <div class="formula-box mb-6">$$ T_{m(\text{esgoto})} = T_{m(\text{água})} \times p $$</div>
                 <div class="text-center space-y-4 max-w-lg mx-auto">
                      <p class="text-lg">Cálculo passo a passo:</p>
@@ -340,7 +300,7 @@
         <section id="comparativo" class="pt-16 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-2 text-center">Comparativo Tarifário: CODEGO (Atual) vs. Tarifa Justa</h2>
             <p class="text-lg mb-8 max-w-3xl mx-auto text-center">Este gráfico compara a tarifa de água atual da CODEGO para 2025 com a tarifa justa calculada nesta análise, permitindo uma visualização clara da diferença entre os valores.</p>
-            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="p-6 bg-white rounded-lg shadow-lg border border-slate-200">
                  <div class="chart-container mb-8">
                     <canvas id="comparisonChart"></canvas>
                 </div>
@@ -349,7 +309,11 @@
         </section>
     </main>
 
-    <footer class="bg-slate-800 text-white mt-16" style="background-color: var(--header-bg);"><div class="container mx-auto px-4 py-6 text-center text-sm"><p>Aplicação Interativa para Análise de Tarifa Regulatória.</p></div></footer>
+    <footer class="mt-16 py-6" style="background-color: var(--header-bg);">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm" style="color: var(--header-text);">Aplicação Interativa para Análise de Tarifa Regulatória.</p>
+        </div>
+    </footer>
 
     <!-- Modals -->
     <div id="rc-calc-modal" class="modal-overlay"><div class="modal-content"><span class="modal-close">&times;</span><h3 class="text-2xl font-bold mb-3">Cálculo da Remuneração de Capital (RC)</h3><p class="mb-4">A Remuneração do Capital é calculada multiplicando a Base de Remuneração Regulatória (BRR) pela taxa do WACC.</p><div class="p-4 bg-slate-50 rounded-lg space-y-2"><p>RC = WACC × BRR</p><p><span id="rc-modal-wacc">0.00%</span> × <span id="rc-modal-brr">R$ 0,00</span> = <strong id="rc-modal-result" class="text-blue-600">R$ 0,00</strong></p></div><p class="text-xs mt-2">O valor calculado será inserido automaticamente no campo RC.</p></div></div>
@@ -398,8 +362,6 @@
                 },
                 alert: document.getElementById('waccAlert'),
                 obsMoreText: document.getElementById('obsMoreText'), readMoreBtn: document.getElementById('readMoreBtn'),
-                themeToggle: document.getElementById('theme-toggle'), themeIconLight: document.getElementById('theme-icon-light'),
-                themeIconDark: document.getElementById('theme-icon-dark'),
                 mobileMenuButton: document.getElementById('mobile-menu-button'),
                 mobileMenu: document.getElementById('mobile-menu'),
             };
@@ -409,7 +371,6 @@
             // Helper function to parse numbers that might use a comma for the decimal place or be negative
             const parseInputNumber = (value) => {
                 const cleanValue = String(value).replace(',', '.');
-                // Allow negative sign only at the beginning
                 if (/^-?\d*\.?\d*$/.test(cleanValue)) {
                     return parseFloat(cleanValue) || 0;
                 }
@@ -421,7 +382,6 @@
                 if (unit === 'BRL') {
                     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 }
-                // For tariff per m³, use specific formatting with comma decimal
                 return `${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} R$/m³`;
             };
 
@@ -575,26 +535,13 @@
                         responsive: true, 
                         maintainAspectRatio: false, 
                         scales: { 
-                            y: {  } // Removed beginAtZero to allow negative values
+                            y: {  } 
                         }, 
                         plugins: { legend: { display: false } } 
                     }
                 });
             };
             
-            // Theme Toggler
-            const applyTheme = (isDark) => {
-                document.documentElement.classList.toggle('dark', isDark);
-                elements.themeIconDark.classList.toggle('hidden', isDark);
-                elements.themeIconLight.classList.toggle('hidden', !isDark);
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            };
-
-            elements.themeToggle.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.contains('dark');
-                applyTheme(!isDark);
-            });
-
             elements.mobileMenuButton.addEventListener('click', () => {
                 elements.mobileMenu.classList.toggle('hidden');
             });
@@ -637,10 +584,7 @@
             elements.inputs.volume.forEach(input => input.addEventListener('input', calculateVolume));
             elements.inputs.brr.addEventListener('input', calculateRC);
             
-            // Initial calls and theme setup
-            const savedTheme = localStorage.getItem('theme');
-            applyTheme(savedTheme === 'dark'); // Default to light if no theme is saved
-
+            // Initial calls
             setupCharts();
             calculateAllWACC();
             calculateVolume();
